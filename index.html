@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelKit — Free Online Image Tools (Resize, Compress, Crop & Convert)</title>
+  <meta name="description" content="Free online image tools to resize, compress to target KB, crop, convert JPG/PNG/WebP, and format passport or signature photos directly in your browser." />
+  <link rel="canonical" href="https://pixelkit.pages.dev/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <div id="announcement-mount"></div>
+  <div id="header-mount"></div>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h1>Free Online Image Tools. Simple, Fast, Private.</h1>
+          <p>Resize, compress to exact KB targets, crop, and convert your images directly in your browser. No account required and zero server uploads.</p>
+          <div class="hero-cta">
+            <a href="#all-tools" class="btn btn-primary">Explore All 32 Tools</a>
+            <a href="/tools/target-file-size/" class="btn btn-secondary">Compress to 20KB / 50KB</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h2 style="font-size:1rem;margin-bottom:0.35rem;">Quick Image Dimension Inspector</h2>
+          <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.65rem;">Select any photo to check its exact pixel resolution and aspect ratio:</p>
+          <input type="file" id="hero-quick-file" accept="image/*" class="input-field" />
+          <div id="hero-quick-result"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="search-section" id="all-tools">
+      <div class="container">
+        <div class="search-bar-wrap">
+          <input type="search" id="tool-search-input" class="search-input" placeholder="Search 32 tools (e.g., '50kb', 'passport', 'signature', 'webp')..." />
+          <button type="button" id="tool-search-clear" class="search-clear">✕</button>
+        </div>
+        <div class="category-pills" id="category-pills"></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <div class="section-header"><h2>Popular Image Tools</h2></div>
+        <div class="tools-grid" id="popular-tools-grid"></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <div class="section-header">
+          <h2>All Image Tools Directory</h2>
+          <span id="tools-count-label" style="font-size:0.84rem;color:var(--text-muted);"></span>
+        </div>
+        <div id="search-empty-state" class="panel" style="display:none;text-align:center;">No matching tools found.</div>
+        <div class="tools-grid" id="all-tools-grid"></div>
+      </div>
+    </section>
+  </main>
+  <div id="footer-mount"></div>
+  <script type="module" src="/assets/js/home.js"></script>
+</body>
+</html>

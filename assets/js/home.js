@@ -1,4 +1,4 @@
-import { initShell } from "./ui-shell.js";
+import { initShell, getRootPrefix } from "./ui-shell.js";
 import { TOOLS, TOOL_CATEGORIES } from "./tool-registry.js";
 import { validateAndDecodeFile, formatBytes, getAspectRatioString } from "./image-engine.js";
 
@@ -44,8 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function cardHTML(tool) {
+  const root = getRootPrefix();
   const cat = TOOL_CATEGORIES.find((c) => c.id === tool.category);
-  return '<a href="/tools/' + tool.id + '/" class="tool-card"><div class="tool-card-top"><span class="tool-icon">' + tool.icon + '</span><span class="badge">' + (cat ? cat.name : tool.category) + '</span></div><h3>' + tool.title + '</h3><p>' + tool.shortDesc + '</p></a>';
+  return '<a href="' + root + 'tools/' + tool.id + '/" class="tool-card"><div class="tool-card-top"><span class="tool-icon">' + tool.icon + '</span><span class="badge">' + (cat ? cat.name : tool.category) + '</span></div><h3>' + tool.title + '</h3><p>' + tool.shortDesc + '</p></a>';
 }
 function renderDir(cat, q) {
   const mount = document.getElementById("all-tools-grid");

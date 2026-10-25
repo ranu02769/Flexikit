@@ -1,18 +1,19 @@
-import { initShell } from "./ui-shell.js";
+import { initShell, getRootPrefix } from "./ui-shell.js";
 import { TOOLS, getToolById } from "./tool-registry.js";
-import { validateAndDecodeFile, renderTransformedCanvas, canvasToBlob, compressToTargetKb, formatBytes, getAspectRatioString, sanitizeFilename, mimeToExtension } from "./image-engine.js";
+import { validateAndDecodeFile, renderTransformedCanvas, canvasToBlob, compressToTargetKb, formatBytes, sanitizeFilename, mimeToExtension } from "./image-engine.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initShell();
-  const root = document.getElementById("tool-workspace-root");
-  if (!root) return;
-  const tool = getToolById(root.dataset.toolId);
+  const rootEl = document.getElementById("tool-workspace-root");
+  if (!rootEl) return;
+  const tool = getToolById(rootEl.dataset.toolId);
   if (!tool) return;
+  const root = getRootPrefix();
   const related = TOOLS.filter((t) => t.category === tool.category && t.id !== tool.id).slice(0, 4);
 
-  root.innerHTML = `
+  rootEl.innerHTML = `
     <div class="container">
-      <ol class="breadcrumbs"><li><a href="/">Home</a></li><li>/</li><li><a href="/#all-tools">Tools</a></li><li>/</li><li>${tool.title}</li></ol>
+      <ol class="breadcrumbs"><li><a href="${root}">Home</a></li><li>/</li><li><a href="${root}#all-tools">Tools</a></li><li>/</li><li>${tool.title}</li></ol>
       <div class="tool-header"><h1>${tool.h1}</h1><p>${tool.intro}</p></div>
       <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
       <div id="workspace-dynamic"></div>
@@ -29,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <aside class="panel">
           <h2 class="panel-title">Related Tools</h2>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;">
-            ${related.map((r) => '<li><a href="/tools/' + r.id + '/">' + r.icon + ' ' + r.title + '</a></li>').join("")}
-            <li><a href="/#all-tools">Explore All ${TOOLS.length} Tools →</a></li>
+            ${related.map((r) => '<li><a href="' + root + 'tools/' + r.id + '/">' + r.icon + ' ' + r.title + '</a></li>').join("")}
+            <li><a href="${root}#all-tools">Explore All ${TOOLS.length} Tools →</a></li>
           </ul>
         </aside>
       </div>
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dyn = document.getElementById("workspace-dynamic");
   if (tool.mode === "guide") {
-    dyn.innerHTML = '<div class="panel"><h2>Browser Resizing vs. Neural Super-Resolution</h2><p style="margin-top:0.6rem;color:var(--text-muted);">Increasing pixel dimensions in a browser uses mathematical bicubic interpolation. For clean resizing, use our <a href="/tools/image-resizer/">Image Resizer</a>.</p></div>';
+    dyn.innerHTML = '<div class="panel"><h2>Browser Resizing vs. Neural Super-Resolution</h2><p style="margin-top:0.6rem;color:var(--text-muted);">Increasing pixel dimensions in a browser uses mathematical bicubic interpolation. For clean resizing, use our <a href="' + root + 'tools/image-resizer/">Image Resizer</a>.</p></div>';
   } else if (tool.mode === "base64-encode") {
     initB64Encode(dyn);
   } else if (tool.mode === "base64-decode") {

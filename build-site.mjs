@@ -22,18 +22,16 @@ write("manifest.webmanifest", JSON.stringify({
   name: "PixelKit — Free Online Image Tools",
   short_name: "PixelKit",
   description: "Resize, compress, crop, and convert images locally in your browser.",
-  start_url: "/",
+  start_url: "./",
   display: "standalone",
   background_color: "#F8FAFC",
   theme_color: "#2563EB",
-  icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }]
+  icons: [{ src: "./favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }]
 }, null, 2));
 
 write("robots.txt", `
 User-agent: *
 Allow: /
-
-Sitemap: https://pixelkit.pages.dev/sitemap.xml
 `);
 
 write("_headers", `
@@ -42,9 +40,6 @@ write("_headers", `
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
 `);
 
 // 2. CSS Design System
@@ -181,9 +176,6 @@ button { cursor: pointer; }
 .faq-list details { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 0.95rem; margin-bottom: 0.5rem; }
 .faq-list summary { font-weight: 600; cursor: pointer; font-size: 0.92rem; }
 .faq-list p { margin-top: 0.45rem; color: var(--text-muted); font-size: 0.88rem; }
-.ad-slot { display: none; margin: 1.5rem auto; padding: 0.75rem; background: var(--bg-subtle); border: 1px dashed var(--border-strong); border-radius: var(--radius-sm); text-align: center; min-height: 90px; }
-.ad-slot.enabled { display: block; }
-.ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); }
 .site-footer { margin-top: auto; background: var(--bg-surface); border-top: 1px solid var(--border); padding: 2.5rem 0 1.75rem; font-size: 0.84rem; color: var(--text-muted); }
 .footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; }
 .footer-col h4 { color: var(--text-main); margin-bottom: 0.65rem; font-size: 0.92rem; }
@@ -496,10 +488,14 @@ export async function compressToTargetKb(source, settings, previewCanvas) {
 }
 `);
 
-// 6. UI Shell JS
+// 6. UI Shell JS (Relative Prefix Aware for GitHub Pages & Cloudflare Pages)
 write("assets/js/ui-shell.js", `
 import { SITE_CONFIG } from "./config.js";
-import { TOOLS, TOOL_CATEGORIES } from "./tool-registry.js";
+import { TOOLS } from "./tool-registry.js";
+
+export function getRootPrefix() {
+  return document.body.dataset.root || "./";
+}
 
 export function initShell() {
   const saved = localStorage.getItem("pixelkit-theme");
@@ -521,25 +517,26 @@ function renderAnnouncement() {
 function renderHeader() {
   const mount = document.getElementById("header-mount");
   if (!mount) return;
+  const root = getRootPrefix();
   mount.innerHTML = \`
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class="brand-logo">
+        <a href="\${root}" class="brand-logo">
           <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#2563EB"/><path d="M16 44L26 31L35 42L42 33L48 44H16Z" fill="#fff"/><circle cx="42" cy="22" r="5" fill="#93C5FD"/></svg>
           <span>\${SITE_CONFIG.brandName}</span>
         </a>
         <button type="button" class="mobile-menu-toggle" id="mobile-menu-btn">Menu ☰</button>
         <ul class="nav-links" id="primary-nav">
-          <li><a href="/#all-tools">All Tools (\${TOOLS.length})</a></li>
-          <li><a href="/tools/image-resizer/">Resize</a></li>
-          <li><a href="/tools/image-compressor/">Compress</a></li>
-          <li><a href="/tools/target-file-size/">Target KB</a></li>
-          <li><a href="/tools/passport-photo-maker/">Passport & ID</a></li>
-          <li><a href="/pages/faq/">FAQ</a></li>
+          <li><a href="\${root}#all-tools">All Tools (\${TOOLS.length})</a></li>
+          <li><a href="\${root}tools/image-resizer/">Resize</a></li>
+          <li><a href="\${root}tools/image-compressor/">Compress</a></li>
+          <li><a href="\${root}tools/target-file-size/">Target KB</a></li>
+          <li><a href="\${root}tools/passport-photo-maker/">Passport & ID</a></li>
+          <li><a href="\${root}pages/faq/">FAQ</a></li>
         </ul>
         <div class="header-actions">
           <button type="button" class="btn btn-secondary btn-sm" id="theme-toggle-btn">◐</button>
-          <a href="/#all-tools" class="btn btn-primary btn-sm">Tools</a>
+          <a href="\${root}#all-tools" class="btn btn-primary btn-sm">Tools</a>
         </div>
       </div>
     </header>
@@ -557,6 +554,7 @@ function renderHeader() {
 function renderFooter() {
   const mount = document.getElementById("footer-mount");
   if (!mount) return;
+  const root = getRootPrefix();
   mount.innerHTML = \`
     <footer class="site-footer">
       <div class="container">
@@ -568,33 +566,33 @@ function renderFooter() {
           <div class="footer-col">
             <h4>Popular Tools</h4>
             <ul>
-              <li><a href="/tools/image-resizer/">Image Resizer</a></li>
-              <li><a href="/tools/image-compressor/">Image Compressor</a></li>
-              <li><a href="/tools/target-file-size/">Target KB Compressor</a></li>
-              <li><a href="/tools/passport-photo-maker/">Passport Photo Maker</a></li>
-              <li><a href="/tools/signature-resizer/">Signature Resizer</a></li>
+              <li><a href="\${root}tools/image-resizer/">Image Resizer</a></li>
+              <li><a href="\${root}tools/image-compressor/">Image Compressor</a></li>
+              <li><a href="\${root}tools/target-file-size/">Target KB Compressor</a></li>
+              <li><a href="\${root}tools/passport-photo-maker/">Passport Photo Maker</a></li>
+              <li><a href="\${root}tools/signature-resizer/">Signature Resizer</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <h4>More Utilities</h4>
             <ul>
-              <li><a href="/tools/image-converter/">Format Converter</a></li>
-              <li><a href="/tools/image-cropper/">Image Cropper</a></li>
-              <li><a href="/tools/bulk-image-resizer/">Bulk Image Resizer</a></li>
-              <li><a href="/tools/collage-maker/">Photo Collage Maker</a></li>
-              <li><a href="/tools/meme-maker/">Meme Maker</a></li>
+              <li><a href="\${root}tools/image-converter/">Format Converter</a></li>
+              <li><a href="\${root}tools/image-cropper/">Image Cropper</a></li>
+              <li><a href="\${root}tools/bulk-image-resizer/">Bulk Image Resizer</a></li>
+              <li><a href="\${root}tools/collage-maker/">Photo Collage Maker</a></li>
+              <li><a href="\${root}tools/meme-maker/">Meme Maker</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <h4>Info & Legal</h4>
             <ul>
-              <li><a href="/pages/about/">About</a></li>
-              <li><a href="/pages/how-to-use/">How to Use</a></li>
-              <li><a href="/pages/faq/">FAQ</a></li>
-              <li><a href="/pages/privacy-policy/">Privacy Policy</a></li>
-              <li><a href="/pages/terms/">Terms</a></li>
-              <li><a href="/pages/disclaimer/">Disclaimer</a></li>
-              <li><a href="/pages/contact/">Contact</a></li>
+              <li><a href="\${root}pages/about/">About</a></li>
+              <li><a href="\${root}pages/how-to-use/">How to Use</a></li>
+              <li><a href="\${root}pages/faq/">FAQ</a></li>
+              <li><a href="\${root}pages/privacy-policy/">Privacy Policy</a></li>
+              <li><a href="\${root}pages/terms/">Terms</a></li>
+              <li><a href="\${root}pages/disclaimer/">Disclaimer</a></li>
+              <li><a href="\${root}pages/contact/">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -608,9 +606,9 @@ function renderFooter() {
 }
 `);
 
-// 7. Home JS
+// 7. Home JS (Relative Links)
 write("assets/js/home.js", `
-import { initShell } from "./ui-shell.js";
+import { initShell, getRootPrefix } from "./ui-shell.js";
 import { TOOLS, TOOL_CATEGORIES } from "./tool-registry.js";
 import { validateAndDecodeFile, formatBytes, getAspectRatioString } from "./image-engine.js";
 
@@ -656,8 +654,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function cardHTML(tool) {
+  const root = getRootPrefix();
   const cat = TOOL_CATEGORIES.find((c) => c.id === tool.category);
-  return '<a href="/tools/' + tool.id + '/" class="tool-card"><div class="tool-card-top"><span class="tool-icon">' + tool.icon + '</span><span class="badge">' + (cat ? cat.name : tool.category) + '</span></div><h3>' + tool.title + '</h3><p>' + tool.shortDesc + '</p></a>';
+  return '<a href="' + root + 'tools/' + tool.id + '/" class="tool-card"><div class="tool-card-top"><span class="tool-icon">' + tool.icon + '</span><span class="badge">' + (cat ? cat.name : tool.category) + '</span></div><h3>' + tool.title + '</h3><p>' + tool.shortDesc + '</p></a>';
 }
 function renderDir(cat, q) {
   const mount = document.getElementById("all-tools-grid");
@@ -672,23 +671,24 @@ function renderDir(cat, q) {
 }
 `);
 
-// 8. Universal Workspace JS
+// 8. Universal Workspace JS (Relative Links)
 write("assets/js/workspace.js", `
-import { initShell } from "./ui-shell.js";
+import { initShell, getRootPrefix } from "./ui-shell.js";
 import { TOOLS, getToolById } from "./tool-registry.js";
-import { validateAndDecodeFile, renderTransformedCanvas, canvasToBlob, compressToTargetKb, formatBytes, getAspectRatioString, sanitizeFilename, mimeToExtension } from "./image-engine.js";
+import { validateAndDecodeFile, renderTransformedCanvas, canvasToBlob, compressToTargetKb, formatBytes, sanitizeFilename, mimeToExtension } from "./image-engine.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initShell();
-  const root = document.getElementById("tool-workspace-root");
-  if (!root) return;
-  const tool = getToolById(root.dataset.toolId);
+  const rootEl = document.getElementById("tool-workspace-root");
+  if (!rootEl) return;
+  const tool = getToolById(rootEl.dataset.toolId);
   if (!tool) return;
+  const root = getRootPrefix();
   const related = TOOLS.filter((t) => t.category === tool.category && t.id !== tool.id).slice(0, 4);
 
-  root.innerHTML = \`
+  rootEl.innerHTML = \`
     <div class="container">
-      <ol class="breadcrumbs"><li><a href="/">Home</a></li><li>/</li><li><a href="/#all-tools">Tools</a></li><li>/</li><li>\${tool.title}</li></ol>
+      <ol class="breadcrumbs"><li><a href="\${root}">Home</a></li><li>/</li><li><a href="\${root}#all-tools">Tools</a></li><li>/</li><li>\${tool.title}</li></ol>
       <div class="tool-header"><h1>\${tool.h1}</h1><p>\${tool.intro}</p></div>
       <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
       <div id="workspace-dynamic"></div>
@@ -705,8 +705,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <aside class="panel">
           <h2 class="panel-title">Related Tools</h2>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;">
-            \${related.map((r) => '<li><a href="/tools/' + r.id + '/">' + r.icon + ' ' + r.title + '</a></li>').join("")}
-            <li><a href="/#all-tools">Explore All \${TOOLS.length} Tools →</a></li>
+            \${related.map((r) => '<li><a href="' + root + 'tools/' + r.id + '/">' + r.icon + ' ' + r.title + '</a></li>').join("")}
+            <li><a href="\${root}#all-tools">Explore All \${TOOLS.length} Tools →</a></li>
           </ul>
         </aside>
       </div>
@@ -715,7 +715,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dyn = document.getElementById("workspace-dynamic");
   if (tool.mode === "guide") {
-    dyn.innerHTML = '<div class="panel"><h2>Browser Resizing vs. Neural Super-Resolution</h2><p style="margin-top:0.6rem;color:var(--text-muted);">Increasing pixel dimensions in a browser uses mathematical bicubic interpolation. For clean resizing, use our <a href="/tools/image-resizer/">Image Resizer</a>.</p></div>';
+    dyn.innerHTML = '<div class="panel"><h2>Browser Resizing vs. Neural Super-Resolution</h2><p style="margin-top:0.6rem;color:var(--text-muted);">Increasing pixel dimensions in a browser uses mathematical bicubic interpolation. For clean resizing, use our <a href="' + root + 'tools/image-resizer/">Image Resizer</a>.</p></div>';
   } else if (tool.mode === "base64-encode") {
     initB64Encode(dyn);
   } else if (tool.mode === "base64-decode") {
@@ -981,7 +981,7 @@ function initBulk(mount, tool) {
 }
 `);
 
-// 9. Homepage & 404
+// 9. Homepage & 404 (Using ./ relative paths so GitHub Pages subdirectory works!)
 write("index.html", `
 <!DOCTYPE html>
 <html lang="en">
@@ -990,12 +990,11 @@ write("index.html", `
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PixelKit — Free Online Image Tools (Resize, Compress, Crop & Convert)</title>
   <meta name="description" content="Free online image tools to resize, compress to target KB, crop, convert JPG/PNG/WebP, and format passport or signature photos directly in your browser." />
-  <link rel="canonical" href="https://pixelkit.pages.dev/" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
 </head>
-<body>
+<body data-root="./">
   <div id="announcement-mount"></div>
   <div id="header-mount"></div>
   <main>
@@ -1006,7 +1005,7 @@ write("index.html", `
           <p>Resize, compress to exact KB targets, crop, and convert your images directly in your browser. No account required and zero server uploads.</p>
           <div class="hero-cta">
             <a href="#all-tools" class="btn btn-primary">Explore All 32 Tools</a>
-            <a href="/tools/target-file-size/" class="btn btn-secondary">Compress to 20KB / 50KB</a>
+            <a href="./tools/target-file-size/" class="btn btn-secondary">Compress to 20KB / 50KB</a>
           </div>
         </div>
         <div class="hero-card">
@@ -1047,7 +1046,7 @@ write("index.html", `
     </section>
   </main>
   <div id="footer-mount"></div>
-  <script type="module" src="/assets/js/home.js"></script>
+  <script type="module" src="./assets/js/home.js"></script>
 </body>
 </html>
 `);
@@ -1059,24 +1058,23 @@ write("404.html", `
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 Page Not Found | PixelKit</title>
-  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
 </head>
-<body>
+<body data-root="./">
   <div id="header-mount"></div>
   <main class="container section-block" style="text-align:center;padding:4rem 1rem;">
     <h1>404 — Page Not Found</h1>
     <p style="color:var(--text-muted);margin:0.75rem auto 1.5rem;">The requested page was not found.</p>
-    <a href="/#all-tools" class="btn btn-primary">Browse All Image Tools</a>
+    <a href="./#all-tools" class="btn btn-primary">Browse All Image Tools</a>
   </main>
   <div id="footer-mount"></div>
-  <script type="module">import { initShell } from "/assets/js/ui-shell.js"; initShell();</script>
+  <script type="module">import { initShell } from "./assets/js/ui-shell.js"; initShell();</script>
 </body>
 </html>
 `);
 
-// 10. Generate all 32 Tool Pages
+// 10. Generate all 32 Tool Pages (Using ../../ relative paths)
 for (const tool of TOOLS_DATA) {
-  const canonical = "https://pixelkit.pages.dev/tools/" + tool.id + "/";
   write("tools/" + tool.id + "/index.html", `
 <!DOCTYPE html>
 <html lang="en">
@@ -1085,22 +1083,21 @@ for (const tool of TOOLS_DATA) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${tool.h1} — PixelKit</title>
   <meta name="description" content="${tool.shortDesc} ${tool.intro}" />
-  <link rel="canonical" href="${canonical}" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
 </head>
-<body>
+<body data-root="../../">
   <div id="announcement-mount"></div>
   <div id="header-mount"></div>
   <main id="tool-workspace-root" data-tool-id="${tool.id}"></main>
   <div id="footer-mount"></div>
-  <script type="module" src="/assets/js/workspace.js"></script>
+  <script type="module" src="../../assets/js/workspace.js"></script>
 </body>
 </html>
   `);
 }
 
-// 11. Generate Info Pages
+// 11. Generate Info Pages (Using ../../ relative paths)
 const INFO_PAGES = [
   { slug: "about", title: "About PixelKit", body: "PixelKit provides free, privacy-friendly online image utilities that run 100% locally in your web browser." },
   { slug: "contact", title: "Contact Us", body: "Have questions or suggestions? Update your contact email in assets/js/config.js." },
@@ -1120,14 +1117,15 @@ for (const p of INFO_PAGES) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${p.title} | PixelKit</title>
-  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
 </head>
-<body>
+<body data-root="../../">
   <div id="announcement-mount"></div>
   <div id="header-mount"></div>
   <main class="container section-block"><div class="panel"><h1>${p.title}</h1><p style="margin-top:0.75rem;color:var(--text-muted);">${p.body}</p></div></main>
   <div id="footer-mount"></div>
-  <script type="module">import { initShell } from "/assets/js/ui-shell.js"; initShell();</script>
+  <script type="module">import { initShell } from "../../assets/js/ui-shell.js"; initShell();</script>
 </body>
 </html>
   `);
@@ -1141,4 +1139,4 @@ const urls = [
 ];
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => "  <url><loc>" + u + "</loc></url>").join("\n")}\n</urlset>`);
 
-console.log("Successfully generated full PixelKit static website!");
+console.log("Successfully generated full PixelKit static website with relative paths!");

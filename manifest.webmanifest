@@ -1,11 +1,11 @@
 {
-  "name": "PixelKit — Free Online Image Tools",
+  "name": "PixelKit Studio — Free Image Tools",
   "short_name": "PixelKit",
-  "description": "Resize, compress, crop, and convert images locally in your browser.",
+  "description": "Fast, private, app-grade image resizer, compressor, cropper & converter.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#F8FAFC",
-  "theme_color": "#2563EB",
+  "theme_color": "#4F46E5",
   "icons": [
     {
       "src": "./favicon.svg",

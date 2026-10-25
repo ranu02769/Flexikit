@@ -3,59 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelKit — Free Online Image Tools (Resize, Compress, Crop & Convert)</title>
-  <meta name="description" content="Free online image tools to resize, compress to target KB, crop, convert JPG/PNG/WebP, and format passport or signature photos directly in your browser." />
+  <title>PixelKit Studio — Free Online Image Resizer, 20KB Compressor & Converter</title>
+  <meta name="description" content="Fast, private browser studio with 32 free image tools: compress to 20KB/50KB, resize pixels, make passport & signature photos, crop, and convert WebP/PNG/JPG." />
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./assets/css/main.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PixelKit Studio",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+  }
+  </script>
 </head>
 <body data-root="./">
-  <div id="announcement-mount"></div>
   <div id="header-mount"></div>
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <h1>Free Online Image Tools. Simple, Fast, Private.</h1>
-          <p>Resize, compress to exact KB targets, crop, and convert your images directly in your browser. No account required and zero server uploads.</p>
-          <div class="hero-cta">
-            <a href="#all-tools" class="btn btn-primary">Explore All 32 Tools</a>
-            <a href="./tools/target-file-size/" class="btn btn-secondary">Compress to 20KB / 50KB</a>
-          </div>
-        </div>
-        <div class="hero-card">
-          <h2 style="font-size:1rem;margin-bottom:0.35rem;">Quick Image Dimension Inspector</h2>
-          <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.65rem;">Select any photo to check its exact pixel resolution and aspect ratio:</p>
-          <input type="file" id="hero-quick-file" accept="image/*" class="input-field" />
-          <div id="hero-quick-result"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="search-section" id="all-tools">
+    <section class="hero-compact">
       <div class="container">
-        <div class="search-bar-wrap">
-          <input type="search" id="tool-search-input" class="search-input" placeholder="Search 32 tools (e.g., '50kb', 'passport', 'signature', 'webp')..." />
-          <button type="button" id="tool-search-clear" class="search-clear">✕</button>
+        <div class="hero-pill"><span class="dot"></span> 100% In-Browser • Zero Server Uploads</div>
+        <h1>Pro Image Tools. Zero Wait.</h1>
+        <p>Resize, hit exact 20KB/50KB limits, format passport IDs, and convert images locally on your device.</p>
+
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" id="tool-search-input" class="search-input" placeholder="Search 32 tools (e.g. 20kb, passport, signature, webp, crop)..." autocomplete="off" />
+          <button type="button" id="tool-search-clear" class="search-clear" aria-label="Clear">✕</button>
         </div>
-        <div class="category-pills" id="category-pills"></div>
+
+        <div class="category-scroll-wrap">
+          <div class="category-pills" id="category-pills"></div>
+        </div>
       </div>
     </section>
 
-    <section class="section-block">
-      <div class="container">
-        <div class="section-header"><h2>Popular Image Tools</h2></div>
-        <div class="tools-grid" id="popular-tools-grid"></div>
-      </div>
-    </section>
-
-    <section class="section-block">
+    <section class="section-block" id="all-tools">
       <div class="container">
         <div class="section-header">
-          <h2>All Image Tools Directory</h2>
-          <span id="tools-count-label" style="font-size:0.84rem;color:var(--text-muted);"></span>
+          <h2>All Studio Tools</h2>
+          <span id="tools-count-label" class="val-pill">32 Tools</span>
         </div>
-        <div id="search-empty-state" class="panel" style="display:none;text-align:center;">No matching tools found.</div>
+        <div id="search-empty-state" class="studio-panel" style="display:none;text-align:center;padding:2rem;">
+          <h3>No matching tool found</h3>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.25rem;">Try searching for "compress", "50kb", "passport", or "webp".</p>
+        </div>
         <div class="tools-grid" id="all-tools-grid"></div>
       </div>
     </section>

@@ -24,12 +24,12 @@ export function mimeToExtension(mime) {
   return "jpg";
 }
 export async function validateAndDecodeFile(file) {
-  if (!file) throw new Error("Please select an image file first.");
+  if (!file) throw new Error("Select an image file first.");
   if (!SUPPORTED_INPUT_TYPES.includes(file.type)) {
-    throw new Error("Unsupported file format. Please select a JPG, PNG, or WebP image.");
+    throw new Error("Unsupported format. Use JPG, PNG, or WebP.");
   }
   if (file.size > SITE_CONFIG.limits.maxFileSizeBytes) {
-    throw new Error("File exceeds the 35 MB browser safety limit.");
+    throw new Error("File exceeds the 35 MB safety limit.");
   }
   const objectUrl = URL.createObjectURL(file);
   try {
@@ -41,7 +41,7 @@ export async function validateAndDecodeFile(file) {
     });
     if (img.naturalWidth > SITE_CONFIG.limits.maxCanvasDimension || img.naturalHeight > SITE_CONFIG.limits.maxCanvasDimension) {
       URL.revokeObjectURL(objectUrl);
-      throw new Error("Image dimensions exceed safe browser canvas limit (8192 px).");
+      throw new Error("Dimensions exceed safe 8192 px canvas limit.");
     }
     return { file, objectUrl, image: img, width: img.naturalWidth, height: img.naturalHeight, mime: file.type, size: file.size, name: file.name };
   } catch (err) {
@@ -52,7 +52,7 @@ export async function validateAndDecodeFile(file) {
 export function canvasToBlob(canvas, mime, quality) {
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
-      if (!blob) { reject(new Error("Browser failed to encode output image.")); return; }
+      if (!blob) { reject(new Error("Canvas encoding failed.")); return; }
       resolve(blob);
     }, mime, quality);
   });
@@ -141,9 +141,9 @@ export function renderTransformedCanvas(source, settings, targetCanvas) {
   if (settings.watermarkText && settings.watermarkText.trim()) {
     ctx.save();
     const fontSize = Math.max(12, Number(settings.watermarkSize || 32));
-    ctx.font = "600 " + fontSize + "px system-ui, sans-serif";
+    ctx.font = "700 " + fontSize + "px system-ui, sans-serif";
     ctx.fillStyle = settings.watermarkColor || "#ffffff";
-    ctx.globalAlpha = 0.78;
+    ctx.globalAlpha = Math.max(0.1, Math.min(1, Number(settings.watermarkOpacity || 75) / 100));
     const pad = Math.max(16, borderW + 16);
     const metrics = ctx.measureText(settings.watermarkText);
     let wx = finalW - metrics.width - pad;
@@ -195,6 +195,7 @@ export function renderTransformedCanvas(source, settings, targetCanvas) {
   }
   return { width: targetCanvas.width, height: targetCanvas.height, mime: exportMime === "image/gif" || exportMime === "image/bmp" ? "image/png" : exportMime };
 }
+
 export async function compressToTargetKb(source, settings, previewCanvas) {
   const targetBytes = Math.max(5, Number(settings.targetKb || 50)) * 1024;
   const mime = settings.format === "image/webp" ? "image/webp" : "image/jpeg";
@@ -210,6 +211,98 @@ export async function compressToTargetKb(source, settings, previewCanvas) {
   if (!bestBlob) {
     bestBlob = await canvasToBlob(previewCanvas, mime, 0.05);
     bestQuality = 0.05;
+    if (settings.allowDownscale && bestBlob.size > targetBytes) {
+      let scale = 0.85;
+      while (scale >= 0.25 && bestBlob.size > targetBytes) {
+        const sw = Math.max(60, Math.round((settings.w || source.width) * scale));
+        const sh = Math.max(40, Math.round((settings.h || source.height) * scale));
+        renderTransformedCanvas(source, { ...workingSettings, w: sw, h: sh }, previewCanvas);
+        bestBlob = await canvasToBlob(previewCanvas, mime, 0.55);
+        bestQuality = 0.55;
+        scale -= 0.15;
+      }
+    }
   }
   return { blob: bestBlob, quality: bestQuality, achieved: bestBlob.size <= targetBytes, width: previewCanvas.width, height: previewCanvas.height, mime };
+}
+
+// Pure Vanilla JS ZIP Creator (Zero Dependencies)
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    t[i] = c >>> 0;
+  }
+  return t;
+})();
+
+function crc32(bytes) {
+  let c = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+
+export async function createZipBlob(filesArray) {
+  const encoder = new TextEncoder();
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+
+  for (const item of filesArray) {
+    const nameBytes = encoder.encode(item.name);
+    const data = new Uint8Array(await item.blob.arrayBuffer());
+    const crc = crc32(data);
+
+    const localHeader = new Uint8Array(30 + nameBytes.length);
+    const lv = new DataView(localHeader.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, 0, true);
+    lv.setUint16(8, 0, true);
+    lv.setUint16(10, 0, true);
+    lv.setUint16(12, 0, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, data.length, true);
+    lv.setUint32(22, data.length, true);
+    lv.setUint16(26, nameBytes.length, true);
+    lv.setUint16(28, 0, true);
+    localHeader.set(nameBytes, 30);
+
+    const centralHeader = new Uint8Array(46 + nameBytes.length);
+    const cv = new DataView(centralHeader.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint16(8, 0, true);
+    cv.setUint16(10, 0, true);
+    cv.setUint16(12, 0, true);
+    cv.setUint16(14, 0, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, data.length, true);
+    cv.setUint32(24, data.length, true);
+    cv.setUint16(28, nameBytes.length, true);
+    cv.setUint16(30, 0, true);
+    cv.setUint16(32, 0, true);
+    cv.setUint16(34, 0, true);
+    cv.setUint16(36, 0, true);
+    cv.setUint32(38, 0, true);
+    cv.setUint32(42, offset, true);
+    centralHeader.set(nameBytes, 46);
+
+    localParts.push(localHeader, data);
+    centralParts.push(centralHeader);
+    offset += localHeader.length + data.length;
+  }
+
+  const centralSize = centralParts.reduce((a, b) => a + b.length, 0);
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, filesArray.length, true);
+  ev.setUint16(10, filesArray.length, true);
+  ev.setUint32(12, centralSize, true);
+  ev.setUint32(16, offset, true);
+
+  return new Blob([...localParts, ...centralParts, eocd], { type: "application/zip" });
 }

@@ -1,15 +1,30 @@
 export const TOOL_CATEGORIES = [
   { id: "all", name: "All Tools" },
-  { id: "resize", name: "Resize & Dimensions" },
-  { id: "compress", name: "Compress Images" },
-  { id: "convert", name: "Convert Formats" },
-  { id: "crop-rotate", name: "Crop, Rotate & Flip" },
-  { id: "photo-id", name: "Photo & Signature" },
+  { id: "compress", name: "Compress" },
+  { id: "resize", name: "Resize" },
+  { id: "photo-id", name: "Passport & Sign" },
+  { id: "convert", name: "Convert" },
+  { id: "crop-rotate", name: "Crop & Rotate" },
   { id: "social", name: "Social Media" },
-  { id: "effects", name: "Creative & Effects" },
-  { id: "bulk", name: "Bulk Processing" },
-  { id: "utilities", name: "Image Utilities" }
+  { id: "effects", name: "Effects & Meme" },
+  { id: "bulk", name: "Bulk + ZIP" },
+  { id: "utilities", name: "Developer" }
 ];
+export const ICONS = {
+  "resize": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"15 3 21 3 21 9\"/><polyline points=\"9 21 3 21 3 15\"/><line x1=\"21\" y1=\"3\" x2=\"14\" y2=\"10\"/><line x1=\"3\" y1=\"21\" x2=\"10\" y2=\"14\"/></svg>",
+  "compress": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+  "target": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><circle cx=\"12\" cy=\"12\" r=\"6\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/></svg>",
+  "crop": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 2v14a2 2 0 0 0 2 2h14\"/><path d=\"M18 22V8a2 2 0 0 0-2-2H2\"/></svg>",
+  "convert": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 1 21 5 17 9\"/><path d=\"M3 11V9a4 4 0 0 1 4-4h14\"/><polyline points=\"7 23 3 19 7 15\"/><path d=\"M21 13v2a4 4 0 0 1-4 4H3\"/></svg>",
+  "rotate": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"23 4 23 10 17 10\"/><path d=\"M20.49 15a9 9 0 1 1-2.12-9.36L23 10\"/></svg>",
+  "idcard": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"2\"/><path d=\"M15 8h2\"/><path d=\"M15 12h2\"/><path d=\"M7 16h10\"/></svg>",
+  "pen": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 19l7-7 3 3-7 7-3-3z\"/><path d=\"M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z\"/></svg>",
+  "social": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" y1=\"6.5\" x2=\"17.51\" y2=\"6.5\"/></svg>",
+  "code": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/></svg>",
+  "wand": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 4V2\"/><path d=\"M15 16v-2\"/><path d=\"M8 9h2\"/><path d=\"M20 9h2\"/><path d=\"M17.8 11.8 19 13\"/><path d=\"M15 9h0\"/><path d=\"M17.8 6.2 19 5\"/><path d=\"m3 21 9-9\"/><path d=\"M12.2 6.2 11 5\"/></svg>",
+  "grid": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/></svg>",
+  "stack": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"12 2 2 7 12 12 22 7 12 2\"/><polyline points=\"2 17 12 22 22 17\"/><polyline points=\"2 12 12 17 22 12\"/></svg>"
+};
 export const TOOLS = [
   {
     "id": "image-resizer",
@@ -17,13 +32,13 @@ export const TOOLS = [
     "category": "resize",
     "popular": true,
     "mode": "single",
-    "icon": "↔",
-    "shortDesc": "Resize JPG, PNG, and WebP images by exact pixels or percentage.",
-    "h1": "Free Online Image Resizer",
-    "intro": "Change image width and height in pixels or scale by percentage while locking aspect ratio.",
+    "iconKey": "resize",
+    "shortDesc": "Exact pixel or percentage resizing with aspect lock.",
+    "h1": "Image Resizer",
+    "intro": "Resize JPG, PNG, and WebP photos by exact pixel dimensions or percentage.",
     "keywords": [
       "resize image",
-      "change dimensions",
+      "pixel resizer",
       "scale photo"
     ],
     "defaults": {
@@ -34,17 +49,17 @@ export const TOOLS = [
     },
     "presets": [
       {
-        "label": "HD (1280×720)",
+        "label": "HD 1280×720",
         "w": 1280,
         "h": 720
       },
       {
-        "label": "Full HD (1920×1080)",
+        "label": "FHD 1920×1080",
         "w": 1920,
         "h": 1080
       },
       {
-        "label": "Square (1080×1080)",
+        "label": "1:1 1080×1080",
         "w": 1080,
         "h": 1080
       }
@@ -56,14 +71,14 @@ export const TOOLS = [
     "category": "compress",
     "popular": true,
     "mode": "single",
-    "icon": "⚡",
-    "shortDesc": "Reduce JPG and WebP file size with live before/after byte comparison.",
-    "h1": "Compress Images Online",
-    "intro": "Adjust compression quality and inspect exact byte savings before downloading.",
+    "iconKey": "compress",
+    "shortDesc": "Shrink photo byte size up to 80% with live quality control.",
+    "h1": "Image Compressor",
+    "intro": "Reduce JPG and WebP file size instantly while preserving visual clarity.",
     "keywords": [
       "compress image",
-      "reduce file size",
-      "optimize jpg"
+      "reduce photo size",
+      "shrink kb"
     ],
     "defaults": {
       "format": "image/jpeg",
@@ -73,18 +88,20 @@ export const TOOLS = [
   },
   {
     "id": "target-file-size",
-    "title": "Target File Size Compressor",
+    "title": "Compress to 20KB / 50KB",
     "category": "compress",
     "popular": true,
     "mode": "single",
-    "icon": "🎯",
-    "shortDesc": "Compress photos toward a target KB limit like 20 KB, 50 KB, or 100 KB.",
-    "h1": "Compress Image to Target KB Size",
-    "intro": "Automatically runs a multi-pass quality search in your browser to reach your target KB limit.",
+    "iconKey": "target",
+    "shortDesc": "Hit exact portal limits like 20 KB, 50 KB, or 100 KB.",
+    "h1": "Compress Image to Exact KB Size",
+    "intro": "Auto-tunes quality and resolution to fit strict 20 KB, 50 KB, or 100 KB form limits.",
     "keywords": [
-      "compress to 50kb",
-      "20kb photo",
-      "100kb image"
+      "20kb",
+      "50kb",
+      "100kb",
+      "target file size",
+      "sarkari form photo"
     ],
     "defaults": {
       "targetKb": 50,
@@ -94,9 +111,95 @@ export const TOOLS = [
     },
     "kbPresets": [
       20,
+      30,
       50,
       100,
       200
+    ]
+  },
+  {
+    "id": "passport-photo-maker",
+    "title": "Passport Photo Maker",
+    "category": "photo-id",
+    "popular": true,
+    "mode": "single",
+    "iconKey": "idcard",
+    "shortDesc": "2×2 inch, 35×45 mm ID presets & 4×6 printable sheet.",
+    "h1": "Passport & ID Photo Maker",
+    "intro": "Format portraits to 300 DPI passport sizes or generate a 4×6 inch multi-photo print sheet.",
+    "keywords": [
+      "passport photo",
+      "35x45mm",
+      "2x2 inch",
+      "exam photo"
+    ],
+    "defaults": {
+      "w": 413,
+      "h": 531,
+      "lockAspect": true,
+      "printSheet": false,
+      "format": "image/jpeg",
+      "quality": 0.94,
+      "bgColor": "#ffffff"
+    },
+    "presets": [
+      {
+        "label": "35×45 mm (413×531)",
+        "w": 413,
+        "h": 531
+      },
+      {
+        "label": "2×2 in (600×600)",
+        "w": 600,
+        "h": 600
+      },
+      {
+        "label": "Exam 200×230 px",
+        "w": 200,
+        "h": 230
+      }
+    ]
+  },
+  {
+    "id": "signature-resizer",
+    "title": "Signature Resizer",
+    "category": "photo-id",
+    "popular": true,
+    "mode": "single",
+    "iconKey": "pen",
+    "shortDesc": "140×60 px exam portal preset under 20 KB.",
+    "h1": "Signature Image Resizer (10KB–20KB)",
+    "intro": "Resize scanned signatures to 140×60 px and compress under 20 KB for online applications.",
+    "keywords": [
+      "signature resizer",
+      "140x60",
+      "20kb signature",
+      "ssc signature"
+    ],
+    "defaults": {
+      "w": 140,
+      "h": 60,
+      "lockAspect": false,
+      "targetKb": 20,
+      "format": "image/jpeg",
+      "bgColor": "#ffffff"
+    },
+    "presets": [
+      {
+        "label": "140×60 px (Portal)",
+        "w": 140,
+        "h": 60
+      },
+      {
+        "label": "300×100 px",
+        "w": 300,
+        "h": 100
+      },
+      {
+        "label": "256×64 px",
+        "w": 256,
+        "h": 64
+      }
     ]
   },
   {
@@ -105,14 +208,14 @@ export const TOOLS = [
     "category": "crop-rotate",
     "popular": true,
     "mode": "single",
-    "icon": "✂",
-    "shortDesc": "Crop images freely or lock to 1:1, 16:9, 4:3, and portrait ratios.",
+    "iconKey": "crop",
+    "shortDesc": "Trim photos with 1:1, 16:9, 4:5 presets or custom frame.",
     "h1": "Crop Image Online",
-    "intro": "Frame the exact region you want to keep using aspect ratio presets or custom crop coordinates.",
+    "intro": "Frame your subject using instant aspect ratio pills or custom offset controls.",
     "keywords": [
-      "crop photo",
-      "trim image",
-      "1:1 square crop"
+      "crop image",
+      "square crop",
+      "16:9 crop"
     ],
     "defaults": {
       "cropRatio": "free",
@@ -125,17 +228,18 @@ export const TOOLS = [
   },
   {
     "id": "image-converter",
-    "title": "Image Converter",
+    "title": "Image Format Converter",
     "category": "convert",
     "popular": true,
     "mode": "single",
-    "icon": "⇄",
-    "shortDesc": "Convert images between JPG, PNG, and WebP formats in your browser.",
-    "h1": "Online Image Format Converter",
-    "intro": "Convert between JPG, PNG, and WebP with configurable background fill for transparent images.",
+    "iconKey": "convert",
+    "shortDesc": "Convert between WebP, JPG, and PNG in one tap.",
+    "h1": "Image Format Converter",
+    "intro": "Fast local conversion between JPG, PNG, and WebP formats.",
     "keywords": [
-      "convert image",
-      "jpg png webp"
+      "image converter",
+      "webp to jpg",
+      "png to jpg"
     ],
     "defaults": {
       "format": "image/webp",
@@ -144,15 +248,37 @@ export const TOOLS = [
     }
   },
   {
+    "id": "bulk-image-resizer",
+    "title": "Bulk Image Resizer (.ZIP)",
+    "category": "bulk",
+    "popular": true,
+    "mode": "bulk",
+    "iconKey": "stack",
+    "shortDesc": "Batch resize up to 25 images & download as a single ZIP.",
+    "h1": "Bulk Image Resizer & ZIP Downloader",
+    "intro": "Process up to 25 photos at once and export them individually or as a single .ZIP archive.",
+    "keywords": [
+      "bulk resize",
+      "batch image resizer",
+      "zip download"
+    ],
+    "defaults": {
+      "scaleMode": "pct",
+      "pct": 50,
+      "format": "image/jpeg",
+      "quality": 0.9
+    }
+  },
+  {
     "id": "jpg-to-png",
-    "title": "JPG to PNG Converter",
+    "title": "JPG to PNG",
     "category": "convert",
     "popular": false,
     "mode": "single",
-    "icon": "PNG",
+    "iconKey": "convert",
     "shortDesc": "Convert JPEG photos into lossless PNG files.",
-    "h1": "Convert JPG to PNG Online",
-    "intro": "Export any JPG or JPEG image into a lossless PNG container directly in your browser.",
+    "h1": "JPG to PNG Converter",
+    "intro": "Turn any JPG image into a lossless PNG file locally.",
     "keywords": [
       "jpg to png",
       "jpeg to png"
@@ -164,22 +290,22 @@ export const TOOLS = [
   },
   {
     "id": "png-to-jpg",
-    "title": "PNG to JPG Converter",
+    "title": "PNG to JPG",
     "category": "convert",
     "popular": false,
     "mode": "single",
-    "icon": "JPG",
-    "shortDesc": "Convert transparent PNG images to JPG with custom background color.",
-    "h1": "Convert PNG to JPG Online",
-    "intro": "Choose a clean background fill color (white by default) and convert PNG files to JPEG.",
+    "iconKey": "convert",
+    "shortDesc": "Convert transparent PNGs to JPG with custom backdrop fill.",
+    "h1": "PNG to JPG Converter",
+    "intro": "Replace transparent PNG backgrounds with solid white or custom color and export as JPEG.",
     "keywords": [
       "png to jpg",
-      "transparent png to jpg"
+      "transparent to white jpg"
     ],
     "defaults": {
       "format": "image/jpeg",
       "lockFormat": true,
-      "quality": 0.9,
+      "quality": 0.92,
       "bgColor": "#ffffff"
     }
   },
@@ -189,10 +315,10 @@ export const TOOLS = [
     "category": "convert",
     "popular": false,
     "mode": "single",
-    "icon": "W",
-    "shortDesc": "Convert images to or from modern WebP format.",
-    "h1": "Online WebP Image Converter",
-    "intro": "Encode images into lightweight WebP files or convert WebP back to PNG/JPG.",
+    "iconKey": "convert",
+    "shortDesc": "Encode images to next-gen WebP for faster websites.",
+    "h1": "WebP Image Converter",
+    "intro": "Convert images to or from high-efficiency WebP format.",
     "keywords": [
       "webp converter",
       "to webp"
@@ -208,10 +334,10 @@ export const TOOLS = [
     "category": "convert",
     "popular": false,
     "mode": "single",
-    "icon": "P→W",
-    "shortDesc": "Compress PNG graphics into smaller WebP files while preserving transparency.",
-    "h1": "Convert PNG to WebP Online",
-    "intro": "WebP supports transparency like PNG while reducing file sizes significantly.",
+    "iconKey": "convert",
+    "shortDesc": "Shrink transparent PNGs into lightweight WebP graphics.",
+    "h1": "PNG to WebP Converter",
+    "intro": "Keep full alpha transparency while cutting PNG file size down with WebP.",
     "keywords": [
       "png to webp",
       "transparent webp"
@@ -228,18 +354,17 @@ export const TOOLS = [
     "category": "convert",
     "popular": false,
     "mode": "single",
-    "icon": "J→W",
-    "shortDesc": "Convert JPG photos into modern WebP images for faster websites.",
-    "h1": "Convert JPG to WebP Online",
-    "intro": "Optimize photographs for modern browsers by exporting JPG files to WebP.",
+    "iconKey": "convert",
+    "shortDesc": "Convert JPEG photographs into WebP format.",
+    "h1": "JPG to WebP Converter",
+    "intro": "Make web images load faster by converting JPEG to WebP.",
     "keywords": [
-      "jpg to webp",
-      "jpeg to webp"
+      "jpg to webp"
     ],
     "defaults": {
       "format": "image/webp",
       "lockFormat": true,
-      "quality": 0.85
+      "quality": 0.86
     }
   },
   {
@@ -248,13 +373,12 @@ export const TOOLS = [
     "category": "convert",
     "popular": false,
     "mode": "single",
-    "icon": "W→J",
-    "shortDesc": "Turn WebP images into universally compatible JPEG files.",
-    "h1": "Convert WebP to JPG Online",
-    "intro": "Convert downloaded WebP files into standard JPG format for forms and editors.",
+    "iconKey": "convert",
+    "shortDesc": "Turn WebP files into standard universal JPG images.",
+    "h1": "WebP to JPG Converter",
+    "intro": "Convert WebP images into universally compatible JPEG files.",
     "keywords": [
-      "webp to jpg",
-      "webp to jpeg"
+      "webp to jpg"
     ],
     "defaults": {
       "format": "image/jpeg",
@@ -269,13 +393,13 @@ export const TOOLS = [
     "category": "crop-rotate",
     "popular": false,
     "mode": "single",
-    "icon": "↻",
-    "shortDesc": "Rotate images 90° clockwise, counterclockwise, or 180°.",
-    "h1": "Rotate Image Online",
-    "intro": "Fix sideways or upside-down photos and export with updated dimensions.",
+    "iconKey": "rotate",
+    "shortDesc": "Rotate photos 90° left, right, or 180° lossless-style.",
+    "h1": "Rotate Image 90° / 180°",
+    "intro": "Fix orientation of sideways photos with instant 90° rotation controls.",
     "keywords": [
-      "rotate photo",
-      "turn image 90 degrees"
+      "rotate image",
+      "turn photo"
     ],
     "defaults": {
       "rotate": 0,
@@ -284,14 +408,14 @@ export const TOOLS = [
   },
   {
     "id": "flip-image",
-    "title": "Flip Image",
+    "title": "Flip & Mirror Image",
     "category": "crop-rotate",
     "popular": false,
     "mode": "single",
-    "icon": "⇄",
-    "shortDesc": "Mirror images horizontally or vertically with one click.",
-    "h1": "Flip & Mirror Image Online",
-    "intro": "Flip selfies or graphics horizontally or vertically directly in your browser.",
+    "iconKey": "rotate",
+    "shortDesc": "Mirror images horizontally or vertically.",
+    "h1": "Flip Image Horizontally or Vertically",
+    "intro": "Mirror selfies and graphics with one tap.",
     "keywords": [
       "flip image",
       "mirror photo"
@@ -303,162 +427,57 @@ export const TOOLS = [
     }
   },
   {
-    "id": "image-dimensions",
-    "title": "Image Dimensions Finder",
-    "category": "utilities",
-    "popular": false,
-    "mode": "inspector",
-    "icon": "📐",
-    "shortDesc": "Check exact pixel width, height, aspect ratio, MIME type, and byte size.",
-    "h1": "Check Image Dimensions & File Details",
-    "intro": "Inspect natural pixel dimensions, aspect ratio, and file size locally.",
-    "keywords": [
-      "image dimensions",
-      "check photo size"
-    ],
-    "defaults": {}
-  },
-  {
-    "id": "image-upscaler-guide",
-    "title": "Image Resolution & Upscaling Guide",
-    "category": "utilities",
-    "popular": false,
-    "mode": "guide",
-    "icon": "ℹ",
-    "shortDesc": "Learn how browser interpolation works vs. true AI super-resolution.",
-    "h1": "Understanding Image Upscaling vs. Browser Resizing",
-    "intro": "An honest technical breakdown of browser bicubic interpolation vs. neural super-resolution.",
-    "keywords": [
-      "image upscaler guide",
-      "high dpi resize"
-    ],
-    "defaults": {}
-  },
-  {
-    "id": "passport-photo-maker",
-    "title": "Passport Photo Maker",
-    "category": "photo-id",
-    "popular": true,
-    "mode": "single",
-    "icon": "🪪",
-    "shortDesc": "Crop portraits to common ID dimensions (2×2 in, 35×45 mm) or print sheets.",
-    "h1": "Online Passport & ID Photo Cropper",
-    "intro": "Frame portrait photos using standard 300 DPI reference sizes or generate a 4×6 print sheet.",
-    "keywords": [
-      "passport size photo",
-      "2x2 inch photo",
-      "35x45mm photo"
-    ],
-    "defaults": {
-      "w": 600,
-      "h": 600,
-      "lockAspect": true,
-      "printSheet": false,
-      "format": "image/jpeg",
-      "quality": 0.95,
-      "bgColor": "#ffffff"
-    },
-    "presets": [
-      {
-        "label": "2×2 in (600×600 px)",
-        "w": 600,
-        "h": 600
-      },
-      {
-        "label": "35×45 mm (413×531 px)",
-        "w": 413,
-        "h": 531
-      },
-      {
-        "label": "Exam Portal (200×230 px)",
-        "w": 200,
-        "h": 230
-      }
-    ]
-  },
-  {
-    "id": "signature-resizer",
-    "title": "Signature Resizer",
-    "category": "photo-id",
-    "popular": true,
-    "mode": "single",
-    "icon": "✍",
-    "shortDesc": "Resize scanned signatures to exam portal dimensions and KB limits.",
-    "h1": "Online Signature Image Resizer",
-    "intro": "Format signature scans to common application dimensions (140×60 px) and compress under 20 KB.",
-    "keywords": [
-      "signature resizer",
-      "140x60 signature",
-      "20kb signature"
-    ],
-    "defaults": {
-      "w": 140,
-      "h": 60,
-      "lockAspect": false,
-      "targetKb": 20,
-      "format": "image/jpeg",
-      "bgColor": "#ffffff"
-    },
-    "presets": [
-      {
-        "label": "140×60 px (Standard)",
-        "w": 140,
-        "h": 60
-      },
-      {
-        "label": "300×100 px",
-        "w": 300,
-        "h": 100
-      }
-    ]
-  },
-  {
     "id": "youtube-thumbnail-resizer",
     "title": "YouTube Thumbnail Resizer",
     "category": "social",
-    "popular": true,
+    "popular": false,
     "mode": "single",
-    "icon": "▶",
-    "shortDesc": "Format images to 1280×720 px (16:9) and keep file size under 2 MB.",
-    "h1": "YouTube Thumbnail Resizer",
-    "intro": "Resize cover graphics to standard 16:9 YouTube thumbnail dimensions.",
+    "iconKey": "social",
+    "shortDesc": "1280×720 HD & 1920×1080 16:9 YouTube presets.",
+    "h1": "YouTube Thumbnail Resizer (1280×720)",
+    "intro": "Format cover images to exact 16:9 YouTube thumbnail dimensions under 2 MB.",
     "keywords": [
-      "youtube thumbnail size",
-      "1280x720 resizer"
+      "youtube thumbnail resizer",
+      "1280x720"
     ],
     "defaults": {
       "w": 1280,
       "h": 720,
       "lockAspect": true,
       "format": "image/jpeg",
-      "quality": 0.9
+      "quality": 0.92
     },
     "presets": [
       {
-        "label": "1280×720 (HD)",
+        "label": "1280×720 HD",
         "w": 1280,
         "h": 720
       },
       {
-        "label": "1920×1080 (FHD)",
+        "label": "1920×1080 FHD",
         "w": 1920,
         "h": 1080
+      },
+      {
+        "label": "Banner 2560×1440",
+        "w": 2560,
+        "h": 1440
       }
     ]
   },
   {
     "id": "instagram-image-resizer",
-    "title": "Instagram Image Resizer",
+    "title": "Instagram Resizer",
     "category": "social",
     "popular": false,
     "mode": "single",
-    "icon": "📷",
-    "shortDesc": "Resize photos for Square (1:1), Portrait (4:5), and Story (9:16) posts.",
+    "iconKey": "social",
+    "shortDesc": "4:5 Portrait (1080×1350), 1:1 Square & 9:16 Story.",
     "h1": "Instagram Photo Resizer",
-    "intro": "Prepare images for Instagram feed, portrait, and story dimensions.",
+    "intro": "One-tap presets for Instagram Portrait (1080×1350), Square, and Story posts.",
     "keywords": [
-      "instagram size",
-      "1080x1350 resizer"
+      "instagram resizer",
+      "1080x1350"
     ],
     "defaults": {
       "w": 1080,
@@ -469,12 +488,12 @@ export const TOOLS = [
     },
     "presets": [
       {
-        "label": "Portrait (1080×1350)",
+        "label": "4:5 (1080×1350)",
         "w": 1080,
         "h": 1350
       },
       {
-        "label": "Square (1080×1080)",
+        "label": "1:1 (1080×1080)",
         "w": 1080,
         "h": 1080
       },
@@ -491,13 +510,13 @@ export const TOOLS = [
     "category": "social",
     "popular": false,
     "mode": "single",
-    "icon": "f",
-    "shortDesc": "Resize images for shared links, feed posts, and cover photos.",
+    "iconKey": "social",
+    "shortDesc": "1200×630 link post, square feed & event cover presets.",
     "h1": "Facebook Image Resizer",
-    "intro": "Use presets for common Facebook post and cover dimensions.",
+    "intro": "Resize photos for Facebook feed posts, link previews, and covers.",
     "keywords": [
-      "facebook post size",
-      "1200x630 resizer"
+      "facebook resizer",
+      "1200x630"
     ],
     "defaults": {
       "w": 1200,
@@ -508,100 +527,35 @@ export const TOOLS = [
     },
     "presets": [
       {
-        "label": "Link Post (1200×630)",
+        "label": "Post 1200×630",
         "w": 1200,
         "h": 630
       },
       {
-        "label": "Square (1080×1080)",
+        "label": "Square 1080×1080",
         "w": 1080,
         "h": 1080
+      },
+      {
+        "label": "Cover 1920×1005",
+        "w": 1920,
+        "h": 1005
       }
     ]
   },
   {
-    "id": "image-to-base64",
-    "title": "Image to Base64",
-    "category": "utilities",
-    "popular": false,
-    "mode": "base64-encode",
-    "icon": "{ }",
-    "shortDesc": "Encode images into Base64 Data URLs or raw strings for HTML/CSS.",
-    "h1": "Convert Image to Base64 Online",
-    "intro": "Generate a Data URL to embed small icons directly into HTML, CSS, or JSON.",
-    "keywords": [
-      "image to base64",
-      "data url generator"
-    ],
-    "defaults": {}
-  },
-  {
-    "id": "base64-to-image",
-    "title": "Base64 to Image",
-    "category": "utilities",
-    "popular": false,
-    "mode": "base64-decode",
-    "icon": "🖼",
-    "shortDesc": "Decode Base64 strings or Data URLs back into downloadable image files.",
-    "h1": "Convert Base64 to Image Online",
-    "intro": "Paste a valid Base64 image string or Data URL to preview and download the decoded image.",
-    "keywords": [
-      "base64 to image",
-      "decode data url"
-    ],
-    "defaults": {}
-  },
-  {
-    "id": "grayscale-image",
-    "title": "Grayscale Image Converter",
-    "category": "effects",
-    "popular": false,
-    "mode": "single",
-    "icon": "◑",
-    "shortDesc": "Convert color photos to black-and-white with adjustable intensity.",
-    "h1": "Convert Image to Grayscale Online",
-    "intro": "Apply clean black-and-white desaturation with a live intensity slider.",
-    "keywords": [
-      "grayscale image",
-      "black and white photo"
-    ],
-    "defaults": {
-      "grayscale": 100,
-      "format": "original"
-    }
-  },
-  {
-    "id": "rounded-corners-image",
-    "title": "Rounded Corners Image",
-    "category": "effects",
-    "popular": false,
-    "mode": "single",
-    "icon": "▢",
-    "shortDesc": "Add smooth rounded corners to any photo and export as transparent PNG.",
-    "h1": "Round Image Corners Online",
-    "intro": "Adjust corner radius in pixels and export as PNG or WebP to preserve transparent corners.",
-    "keywords": [
-      "round corners image",
-      "border radius photo"
-    ],
-    "defaults": {
-      "borderRadius": 48,
-      "format": "image/png"
-    }
-  },
-  {
     "id": "circular-image-cropper",
-    "title": "Circular Image Cropper",
+    "title": "Circle Avatar Cropper",
     "category": "effects",
     "popular": false,
     "mode": "single",
-    "icon": "◯",
-    "shortDesc": "Crop avatars and profile pictures into a circle with transparent background.",
-    "h1": "Crop Image into a Circle Online",
-    "intro": "Create circular profile avatars exported in PNG or WebP format with alpha transparency.",
+    "iconKey": "wand",
+    "shortDesc": "Crop profile pictures into a circle with transparent corners.",
+    "h1": "Circular Profile Picture Cropper",
+    "intro": "Export round profile avatars as transparent PNG or WebP.",
     "keywords": [
       "circle crop",
-      "round profile picture"
+      "round avatar"
     ],
     "defaults": {
       "circleCrop": true,
@@ -609,18 +563,56 @@ export const TOOLS = [
     }
   },
   {
-    "id": "add-image-border",
-    "title": "Add Border to Image",
+    "id": "rounded-corners-image",
+    "title": "Rounded Corners",
     "category": "effects",
     "popular": false,
     "mode": "single",
-    "icon": "▣",
-    "shortDesc": "Frame photos with a solid colored border of custom pixel thickness.",
-    "h1": "Add Border to Image Online",
-    "intro": "Frame your image with a clean solid-color border.",
+    "iconKey": "wand",
+    "shortDesc": "Smooth border-radius corners exported as transparent PNG.",
+    "h1": "Round Image Corners",
+    "intro": "Add smooth rounded corners with adjustable pixel radius.",
     "keywords": [
-      "add border to photo",
-      "image frame"
+      "round corners",
+      "border radius image"
+    ],
+    "defaults": {
+      "borderRadius": 48,
+      "format": "image/png"
+    }
+  },
+  {
+    "id": "grayscale-image",
+    "title": "Black & White Filter",
+    "category": "effects",
+    "popular": false,
+    "mode": "single",
+    "iconKey": "wand",
+    "shortDesc": "Convert color photos to monochrome grayscale.",
+    "h1": "Grayscale Image Converter",
+    "intro": "Turn color images into clean black-and-white photos.",
+    "keywords": [
+      "grayscale",
+      "black and white"
+    ],
+    "defaults": {
+      "grayscale": 100,
+      "format": "original"
+    }
+  },
+  {
+    "id": "add-image-border",
+    "title": "Add Image Border",
+    "category": "effects",
+    "popular": false,
+    "mode": "single",
+    "iconKey": "wand",
+    "shortDesc": "Wrap photos in a clean solid frame of custom thickness.",
+    "h1": "Add Border Frame to Image",
+    "intro": "Add a customizable colored border around any photo.",
+    "keywords": [
+      "add border",
+      "photo frame"
     ],
     "defaults": {
       "borderWidth": 24,
@@ -630,17 +622,17 @@ export const TOOLS = [
   },
   {
     "id": "image-watermark",
-    "title": "Add Watermark to Image",
+    "title": "Text Watermark Studio",
     "category": "effects",
     "popular": false,
     "mode": "single",
-    "icon": "©",
-    "shortDesc": "Stamp customizable copyright text over your photos locally.",
-    "h1": "Watermark Images Online",
-    "intro": "Add custom text, font size, and position to protect your visual work.",
+    "iconKey": "wand",
+    "shortDesc": "Stamp custom copyright text with opacity & position control.",
+    "h1": "Add Text Watermark to Image",
+    "intro": "Protect your photos with customizable text overlays.",
     "keywords": [
-      "add watermark",
-      "text overlay photo"
+      "watermark image",
+      "copyright stamp"
     ],
     "defaults": {
       "watermarkText": "© PixelKit",
@@ -653,16 +645,16 @@ export const TOOLS = [
   },
   {
     "id": "blur-image",
-    "title": "Blur Image",
+    "title": "Gaussian Blur",
     "category": "effects",
     "popular": false,
     "mode": "single",
-    "icon": "≈",
-    "shortDesc": "Apply smooth Gaussian blur to photos with adjustable radius.",
+    "iconKey": "wand",
+    "shortDesc": "Smooth background blur with live radius slider.",
     "h1": "Blur Image Online",
-    "intro": "Soften backgrounds or obscure details with an adjustable blur radius.",
+    "intro": "Apply smooth Gaussian blur to soften backgrounds or hide details.",
     "keywords": [
-      "blur photo",
+      "blur image",
       "gaussian blur"
     ],
     "defaults": {
@@ -672,17 +664,17 @@ export const TOOLS = [
   },
   {
     "id": "pixelate-image",
-    "title": "Pixelate Image",
+    "title": "Pixelate & Censor",
     "category": "effects",
     "popular": false,
     "mode": "single",
-    "icon": "▦",
-    "shortDesc": "Create retro pixel-art effects or censor sensitive image details.",
+    "iconKey": "wand",
+    "shortDesc": "8-bit mosaic pixelation for retro art or privacy censoring.",
     "h1": "Pixelate Image Online",
-    "intro": "Adjust pixel block size to create 8-bit styles or obscure private text.",
+    "intro": "Adjust pixel block size to pixelate photos.",
     "keywords": [
       "pixelate image",
-      "mosaic censor"
+      "mosaic"
     ],
     "defaults": {
       "pixelSize": 12,
@@ -691,21 +683,21 @@ export const TOOLS = [
   },
   {
     "id": "meme-maker",
-    "title": "Meme Maker",
+    "title": "Meme Generator",
     "category": "effects",
     "popular": false,
     "mode": "single",
-    "icon": "💬",
-    "shortDesc": "Add classic bold top and bottom captions with black stroke outline.",
-    "h1": "Free Online Meme Generator",
-    "intro": "Upload any image, type your top and bottom text, and export immediately.",
+    "iconKey": "wand",
+    "shortDesc": "Classic bold Impact top & bottom captions with stroke.",
+    "h1": "Online Meme Maker",
+    "intro": "Add top and bottom meme captions with crisp black outline.",
     "keywords": [
       "meme maker",
-      "top bottom text image"
+      "caption image"
     ],
     "defaults": {
-      "memeTop": "WHEN CODE COMPILES",
-      "memeBottom": "ON THE FIRST TRY",
+      "memeTop": "FIRST TRY",
+      "memeBottom": "ZERO BUGS",
       "memeFontSize": 44,
       "format": "image/jpeg",
       "quality": 0.92
@@ -713,17 +705,17 @@ export const TOOLS = [
   },
   {
     "id": "collage-maker",
-    "title": "Photo Collage Maker",
+    "title": "Photo Collage Grid",
     "category": "effects",
     "popular": false,
     "mode": "collage",
-    "icon": "⊞",
-    "shortDesc": "Combine 2 to 4 images into side-by-side, vertical, or 2×2 grid layouts.",
-    "h1": "Online Photo Collage Maker",
-    "intro": "Select multiple photos, pick a grid layout, adjust spacing, and export a combined image.",
+    "iconKey": "grid",
+    "shortDesc": "Combine 2–4 photos into side-by-side or 2×2 grids.",
+    "h1": "Photo Collage Maker",
+    "intro": "Merge multiple photos into a clean 2×2 grid or side-by-side layout.",
     "keywords": [
       "collage maker",
-      "combine photos"
+      "photo grid"
     ],
     "defaults": {
       "layout": "grid-2x2",
@@ -733,39 +725,18 @@ export const TOOLS = [
     }
   },
   {
-    "id": "bulk-image-resizer",
-    "title": "Bulk Image Resizer",
-    "category": "bulk",
-    "popular": true,
-    "mode": "bulk",
-    "icon": "📚",
-    "shortDesc": "Resize up to 25 images in your browser with per-file status tracking.",
-    "h1": "Bulk Image Resizer Online",
-    "intro": "Select multiple images at once, apply shared scale settings, and download each processed file.",
-    "keywords": [
-      "bulk resize images",
-      "batch photo resizer"
-    ],
-    "defaults": {
-      "scaleMode": "pct",
-      "pct": 50,
-      "format": "image/jpeg",
-      "quality": 0.9
-    }
-  },
-  {
     "id": "bulk-image-converter",
-    "title": "Bulk Image Converter",
+    "title": "Bulk Format Converter (.ZIP)",
     "category": "bulk",
     "popular": false,
     "mode": "bulk",
-    "icon": "🗂",
-    "shortDesc": "Batch-convert multiple JPG, PNG, and WebP files locally.",
+    "iconKey": "stack",
+    "shortDesc": "Batch convert up to 25 files to WebP/JPG/PNG + ZIP export.",
     "h1": "Bulk Image Format Converter",
-    "intro": "Convert a queue of images to WebP, JPG, or PNG in one batch.",
+    "intro": "Convert multiple images at once and download all as a .ZIP archive.",
     "keywords": [
-      "batch image converter",
-      "bulk png to webp"
+      "bulk converter",
+      "batch webp"
     ],
     "defaults": {
       "scaleMode": "pct",
@@ -774,6 +745,70 @@ export const TOOLS = [
       "quality": 0.88,
       "bgColor": "#ffffff"
     }
+  },
+  {
+    "id": "image-dimensions",
+    "title": "Resolution & DPI Inspector",
+    "category": "utilities",
+    "popular": false,
+    "mode": "inspector",
+    "iconKey": "code",
+    "shortDesc": "Instant width, height, aspect ratio, megapixels & byte size.",
+    "h1": "Check Image Dimensions & Aspect Ratio",
+    "intro": "Inspect exact pixel resolution, aspect ratio, and file size locally.",
+    "keywords": [
+      "image dimensions",
+      "check resolution"
+    ],
+    "defaults": {}
+  },
+  {
+    "id": "image-to-base64",
+    "title": "Image to Base64",
+    "category": "utilities",
+    "popular": false,
+    "mode": "base64-encode",
+    "iconKey": "code",
+    "shortDesc": "Generate inline Data URL strings for HTML & CSS.",
+    "h1": "Image to Base64 Encoder",
+    "intro": "Convert icons and images into Base64 Data URLs.",
+    "keywords": [
+      "image to base64",
+      "data url"
+    ],
+    "defaults": {}
+  },
+  {
+    "id": "base64-to-image",
+    "title": "Base64 to Image",
+    "category": "utilities",
+    "popular": false,
+    "mode": "base64-decode",
+    "iconKey": "code",
+    "shortDesc": "Decode Base64 strings back into downloadable PNG/JPG files.",
+    "h1": "Base64 to Image Decoder",
+    "intro": "Paste a Base64 payload to preview and download the image.",
+    "keywords": [
+      "base64 to image",
+      "decode base64"
+    ],
+    "defaults": {}
+  },
+  {
+    "id": "image-upscaler-guide",
+    "title": "Upscaling vs Resizing Guide",
+    "category": "utilities",
+    "popular": false,
+    "mode": "guide",
+    "iconKey": "code",
+    "shortDesc": "Technical comparison of bicubic browser scaling vs neural AI.",
+    "h1": "Image Upscaling & DPI Guide",
+    "intro": "How browser interpolation works and how to export crisp high-DPI graphics.",
+    "keywords": [
+      "upscaler guide",
+      "dpi guide"
+    ],
+    "defaults": {}
   }
 ];
 export function getToolById(id) {
